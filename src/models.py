@@ -18,17 +18,37 @@ class User(Base):
     last_name: Mapped[str] = mapped_column(nullable=False)
 
 
-class Favorites(Base):
-    __tablename__= 'favorites'
+# class Favorites(Base):
+#     __tablename__= 'favorites'
+#     id: Mapped[int] = mapped_column(primary_key=True)
+#     user_ID: Mapped[str] = mapped_column(ForeignKey('user.id'), nullable=True)
+#     user: Mapped["User"] = relationship()
+
+#     planets_ID: Mapped[int] = mapped_column(ForeignKey('planets.id'), nullable=True)
+#     planets: Mapped["Planets"]=relationship()
+
+#     people_ID: Mapped[int] = mapped_column(ForeignKey('people.id'), nullable = True)
+#     people: Mapped["People"]=relationship()
+
+class Planets_favorites(Base):
+    __tablename__= 'planets_favorites'
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_ID: Mapped[str] = mapped_column(ForeignKey('user.id'), nullable=True)
+    user_ID: Mapped[str] = mapped_column(ForeignKey('user.id'))
     user: Mapped["User"] = relationship()
 
-    planets_ID: Mapped[int] = mapped_column(ForeignKey('planets.id'), nullable=True)
+    planets_ID: Mapped[int] = mapped_column(ForeignKey('planets.id'))
     planets: Mapped["Planets"]=relationship()
 
-    people_ID: Mapped[int] = mapped_column(ForeignKey('people.id'), nullable = True)
-    people: Mapped["People"]=relationship()
+class People_favorites(Base):
+    __tablename__= 'people_favorites'
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    user_ID: Mapped[str] = mapped_column(ForeignKey('user.id'))
+    user: Mapped["User"] = relationship()
+
+    planets_ID: Mapped[int] = mapped_column(ForeignKey('people.id'))
+    planets: Mapped["People"]=relationship()
+
 
 class People(Base):
     __tablename__ = 'people'
